@@ -1,6 +1,7 @@
 package com.example.retrofit.base;
 
 import com.github.lianjiatech.retrofit.spring.boot.interceptor.BaseGlobalInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Component;
@@ -16,11 +17,16 @@ import java.io.IOException;
  *
  */
 @Component
+@Slf4j
 public class SystemSourceGlobalInterceptor extends BaseGlobalInterceptor {
 
     @Override
     public Response doIntercept(Chain chain) throws IOException {
         Request request = chain.request();
+
+        log.info(request.url().queryParameter("timestamp"));
+        log.info(request.url().queryParameter("anotherTimeStampTimestamp"));
+
         Request newReq = request.newBuilder()
             /*请求时加入信息*/
             .addHeader("source", "test")

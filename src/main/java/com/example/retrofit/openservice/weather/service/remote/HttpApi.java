@@ -1,13 +1,19 @@
 package com.example.retrofit.openservice.weather.service.remote;
 
+import com.example.retrofit.base.AnotherTimeStampInterceptor;
 import com.example.retrofit.base.Sign;
+import com.example.retrofit.base.TimeStampInterceptor;
 import com.example.retrofit.openservice.weather.domain.responseEntity.Response;
 import com.example.retrofit.openservice.weather.service.remote.fallback.HttpDegradeFallback;
+import com.github.lianjiatech.retrofit.spring.boot.annotation.Intercept;
+import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
+import okhttp3.OkHttpClient;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -18,21 +24,28 @@ import java.util.Map;
  * @date 2020/08/24
  **/
 @RetrofitClient(baseUrl = "https://tianqiapi.com/",fallback = HttpDegradeFallback.class)
+
+
+/*拦截器顺序为标记的顺序，其中全局过滤器排在最后*/
+
 @Sign
+/*2.2.2  @Intercept支持多拦截器配置*/
+@Intercept(handler = TimeStampInterceptor.class, include = {"/api/**"})
+@Intercept(handler = AnotherTimeStampInterceptor.class, include = {"/api/**"})
 public interface HttpApi {
 
     /**
      * 构建出的这个方法一定一定要加  @OkHttpClientBuilder 这个注解
      * @return
      */
-//    @OkHttpClientBuilder
-//    static OkHttpClient.Builder okhttpClientBuilder() {
-//        return new OkHttpClient.Builder()
-//                .connectTimeout(1, TimeUnit.SECONDS)
-//                .readTimeout(1, TimeUnit.SECONDS)
-//                .writeTimeout(1, TimeUnit.SECONDS);
-//
-//    }
+    @OkHttpClientBuilder
+    static OkHttpClient.Builder okhttpClientBuilder() {
+        return new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.SECONDS)
+                .readTimeout(1, TimeUnit.SECONDS)
+                .writeTimeout(1, TimeUnit.SECONDS);
+
+    }
 
     /**
      *  方法上的路径不以/开头

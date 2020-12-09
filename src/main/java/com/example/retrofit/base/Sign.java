@@ -28,7 +28,7 @@ public @interface Sign {
      * 密钥
      * 支持占位符形式配置。
      *
-     * @return
+     * @returnIntercept
      */
 //    String accessKeySecret();
 
