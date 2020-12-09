@@ -1,0 +1,31 @@
+retrofit:
+  # 是否启用 BodyCallAdapter适配器
+  enable-body-call-adapter: true
+  # 是否启用 ResponseCallAdapter适配器
+  enable-response-call-adapter: true
+  # 启用日志打印
+  enable-log: true
+  # 连接池配置
+  pool:
+    test1:
+      max-idle-connections: 3
+      keep-alive-second: 100
+    test2:
+      max-idle-connections: 5
+      keep-alive-second: 50
+  # 禁用void返回值类型
+  disable-void-return-type: false
+  # 日志打印拦截器
+  logging-interceptor: com.github.lianjiatech.retrofit.spring.boot.interceptor.DefaultLoggingInterceptor
+  # Http异常信息格式化器
+  http-exception-message-formatter: com.github.lianjiatech.retrofit.spring.boot.interceptor.DefaultHttpExceptionMessageFormatter
+  # 请求重试拦截器
+  retry-interceptor: com.github.lianjiatech.retrofit.spring.boot.retry.DefaultRetryInterceptor
+  global-converter-factories: com.alibaba.fastjson.support.retrofit.Retrofit2ConverterFactory
+
+  # 是否启用熔断降级
+  enable-degrade: true
+  # 熔断降级实现方式(目前仅支持Sentinel)
+  degrade-type: sentinel
+  # 资源名称解析器
+  resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
