@@ -41,7 +41,10 @@ retrofit-spring-boot-starter支持请求重试功能，只需要在接口或者�
 RESPONSE_STATUS_NOT_2XX：响应状态码不是2xx时执行重试；
 OCCUR_IO_EXCEPTION：发生IO异常时执行重试；
 OCCUR_EXCEPTION：发生任意异常时执行重试；
-默认响应状态码不是2xx或者发生IO异常时自动进行重试。需要的话，你也可以继承BaseRetryInterceptor实现自己的请求重试拦截器，然后将其配置上去。*/
+默认响应状态码不是2xx或者发生IO异常时自动进行重试。需要的话，你也可以继承BaseRetryInterceptor实现自己的请求重试拦截器，然后将其配置上去。
+
+请更改操作系统host  127.0.0.1 tianqiapi.com  跟进作者在重试拦截器中加入重试调试日志的输出
+*/
 @Retry
 public interface HttpApi {
 
@@ -65,5 +68,7 @@ public interface HttpApi {
      *
      */
     @GET("api")
+
+    /*  @Retry 也可加载接口上  */
     Response api(@QueryMap Map<String, String> livedWeather);
 }
