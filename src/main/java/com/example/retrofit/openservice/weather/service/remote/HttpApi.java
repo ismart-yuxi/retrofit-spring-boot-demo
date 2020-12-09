@@ -9,9 +9,9 @@ import com.github.lianjiatech.retrofit.spring.boot.annotation.Intercept;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
 import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import retrofit2.http.GET;
-import retrofit2.http.QueryMap;
+import retrofit2.http.*;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -68,7 +68,16 @@ public interface HttpApi {
      *
      */
     @GET("api")
-
     /*  @Retry 也可加载接口上  */
     Response api(@QueryMap Map<String, String> livedWeather);
+
+
+    /**
+     * 演示上传
+     * @param file 要上传的文件
+     * @return
+     */
+    @POST("upload")
+    @Multipart
+    String upload(@Part MultipartBody.Part file);
 }
