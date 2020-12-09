@@ -33,13 +33,14 @@ package com.example;
 
 import com.alibaba.fastjson.support.retrofit.Retrofit2ConverterFactory;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+
+/**/
 @RetrofitScan("com.example.retrofit")
 public class HelloworldApplication {
 
