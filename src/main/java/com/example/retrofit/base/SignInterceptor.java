@@ -26,15 +26,18 @@ public class SignInterceptor extends BasePathMatchInterceptor {
 
     @Override
     public Response doIntercept(Chain chain) throws IOException {
+        log.info("====>SignInterceptor");
         Request request = chain.request();
 //        Request newReq = request.newBuilder()
 //                .addHeader("accessKeyId", accessKeyId)
 //                .addHeader("accessKeySecret", accessKeySecret)
 //                .build();
-         request.url().queryParameterNames().forEach(param -> {
-             out.println(param +"============"+ request.url().queryParameterValues(param));
-         });
 
+         request.url().queryParameterNames().forEach(param -> {
+
+             out.print(param +"============"+ request.url().queryParameterValues(param));
+         });
+        out.println();
         return chain.proceed(request);
     }
 

@@ -22,10 +22,10 @@ public class SystemSourceGlobalInterceptor extends BaseGlobalInterceptor {
 
     @Override
     public Response doIntercept(Chain chain) throws IOException {
+        log.info("====>SystemSourceGlobalInterceptor");
         Request request = chain.request();
 
-        log.info(request.url().queryParameter("timestamp"));
-        log.info(request.url().queryParameter("anotherTimeStampTimestamp"));
+        log.info("timestamp===>" + request.url().queryParameter("timestamp") +"=======>anotherTimeStampTimestamp====>" +request.url().queryParameter("anotherTimeStampTimestamp"));
 
         Request newReq = request.newBuilder()
             /*请求时加入信息*/
