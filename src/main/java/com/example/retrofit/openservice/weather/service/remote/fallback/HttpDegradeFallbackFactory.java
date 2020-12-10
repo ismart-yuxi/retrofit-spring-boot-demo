@@ -1,9 +1,13 @@
 package com.example.retrofit.openservice.weather.service.remote.fallback;
 
+import com.example.retrofit.openservice.weather.domain.responseEntity.Response;
 import com.example.retrofit.openservice.weather.service.remote.HttpApi;
 import com.github.lianjiatech.retrofit.spring.boot.degrade.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.MultipartBody;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * @author wangyuxi
@@ -22,6 +26,17 @@ public class HttpDegradeFallbackFactory implements FallbackFactory<HttpApi> {
     @Override
     public HttpApi create(Throwable cause) {
         log.error("触发熔断了! ", cause.getMessage(), cause);
-        return livedWeather -> null;
+        return new HttpApi() {
+
+            @Override
+            public Response api(Map<String, String> livedWeather) {
+                return null;
+            }
+
+            @Override
+            public String upload(MultipartBody.Part file) {
+                return null;
+            }
+        };
     }
 }
