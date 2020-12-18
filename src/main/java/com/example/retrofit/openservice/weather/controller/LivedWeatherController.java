@@ -25,11 +25,10 @@ public class LivedWeatherController {
         return livedWeatherService.livedWeather(requestParamMap);
     }
 
-
     @PostMapping("/upload")
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file) throws IOException {
-        livedWeatherService.uploadFile( file);
+        livedWeatherService.uploadFile(file);
         return "success";
     }
 

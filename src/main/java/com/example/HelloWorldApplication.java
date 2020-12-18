@@ -39,45 +39,43 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-
-/**/
 @RetrofitScan("com.example.retrofit")
-public class HelloworldApplication {
+public class HelloWorldApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(HelloWorldApplication.class, args);
+    }
 
-  @Bean
-  @ConditionalOnMissingBean
-  public Retrofit2ConverterFactory retrofit2ConverterFactory() {
-    return Retrofit2ConverterFactory.create();
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public Retrofit2ConverterFactory retrofit2ConverterFactory() {
+        return Retrofit2ConverterFactory.create();
+    }
 
-  public static void main(String[] args) {
-    SpringApplication.run(HelloworldApplication.class, args);
-  }
 }
 
 //@RestController
-//class HelloworldController {
-//  private static final Logger log = LoggerFactory.getLogger(HelloworldController.class);
+//class HelloWorldController {
+//    private static final Logger log = LoggerFactory.getLogger(HelloWorldController.class);
 //
-//  @Value("${version:1.0}")
-//  public String version;
+//    @Value("${version:1.0}")
+//    public String version;
 //
-//  @GetMapping("/hello/{name}")
-//  public Map<String, String> hello(@Value("${greeting}") String greetingTemplate, @PathVariable String name) throws UnknownHostException {
-//  	log.info("Recevied hello request for: " + name);
-//    Map<String, String> response = new HashMap<>();
+//    @GetMapping("/hello/{name}")
+//    public Map<String, String> hello(@Value("${greeting}") String greetingTemplate, @PathVariable String name) throws UnknownHostException {
+//        log.info("Recevied hello request for: " + name);
+//        Map<String, String> response = new HashMap<>();
 //
-//    String hostname = InetAddress.getLocalHost().getHostName();
-//    String greeting = greetingTemplate
-//        .replaceAll("\\$name", name)
-//        .replaceAll("\\$hostname", hostname)
-//        .replaceAll("\\$version", version);
+//        String hostname = InetAddress.getLocalHost().getHostName();
+//        String greeting = greetingTemplate
+//                .replaceAll("\\$name", name)
+//                .replaceAll("\\$hostname", hostname)
+//                .replaceAll("\\$version", version);
 //
-//    response.put("greeting", greeting);
-//    response.put("version", version);
-//    response.put("hostname", hostname);
+//        response.put("greeting", greeting);
+//        response.put("version", version);
+//        response.put("hostname", hostname);
 //
-//    return response;
-//  }
+//        return response;
+//    }
 //}

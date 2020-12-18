@@ -7,13 +7,9 @@ import java.io.Serializable;
 @Data
 public class AjaxObject<T> implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-
-
-	/**
      * 返回码
      */
     private String code;
@@ -27,8 +23,6 @@ public class AjaxObject<T> implements Serializable {
      */
     private T result;
 
-
-
     public static <T> AjaxObject<T> basicAjax(AjaxCodeEnum ajaxCodeEnum, T result) {
         AjaxObject ajaxObject = new AjaxObject();
         ajaxObject.code = ajaxCodeEnum.getCode();
@@ -37,7 +31,6 @@ public class AjaxObject<T> implements Serializable {
         return ajaxObject;
     }
 
-
     public static <T> AjaxObject<T> customAjax(String code, String msg, T result) {
         AjaxObject ajaxObject = new AjaxObject();
         ajaxObject.code = code;
@@ -45,7 +38,6 @@ public class AjaxObject<T> implements Serializable {
         ajaxObject.result = result;
         return ajaxObject;
     }
-
 
     public static <T> AjaxObject<T> customOk(String msg, T result) {
         AjaxObject ajaxObject = new AjaxObject();
@@ -57,7 +49,6 @@ public class AjaxObject<T> implements Serializable {
         }
         return ajaxObject;
     }
-
 
     public static <T> AjaxObject<T> customFail(String msg, T result) {
         AjaxObject ajaxObject = new AjaxObject();

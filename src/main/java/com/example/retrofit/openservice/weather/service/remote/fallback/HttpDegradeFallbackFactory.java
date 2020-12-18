@@ -25,7 +25,7 @@ public class HttpDegradeFallbackFactory implements FallbackFactory<HttpApi> {
      */
     @Override
     public HttpApi create(Throwable cause) {
-        log.error("触发熔断了! ", cause.getMessage(), cause);
+        log.error("触发熔断了:{}", cause.getMessage(), cause);
         return new HttpApi() {
 
             @Override

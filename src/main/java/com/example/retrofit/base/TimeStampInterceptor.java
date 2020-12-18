@@ -20,11 +20,11 @@ public class TimeStampInterceptor extends BasePathMatchInterceptor {
         HttpUrl url = request.url();
         long timestamp = System.nanoTime();
         HttpUrl newUrl = url.newBuilder()
-            .addQueryParameter("timestamp", String.valueOf(timestamp))
-            .build();
+                .addQueryParameter("timestamp", String.valueOf(timestamp))
+                .build();
         Request newRequest = request.newBuilder()
-            .url(newUrl)
-            .build();
+                .url(newUrl)
+                .build();
         return chain.proceed(newRequest);
     }
 }

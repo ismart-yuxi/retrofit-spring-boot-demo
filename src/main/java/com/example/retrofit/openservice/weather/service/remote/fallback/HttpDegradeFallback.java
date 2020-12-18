@@ -30,6 +30,7 @@ public class HttpDegradeFallback implements HttpApi {
 
     /**
      * 上传时发生熔断
+     *
      * @param file 要上传的文件
      * @return
      */

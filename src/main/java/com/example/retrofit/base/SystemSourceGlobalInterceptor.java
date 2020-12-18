@@ -9,12 +9,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- *
  * 系统全局拦截
  *
  * @author wangyuxi
  * @date 2020/12/09
- *
  */
 @Component
 @Slf4j
@@ -25,12 +23,12 @@ public class SystemSourceGlobalInterceptor extends BaseGlobalInterceptor {
         log.info("====>SystemSourceGlobalInterceptor");
         Request request = chain.request();
 
-        log.info("timestamp===>" + request.url().queryParameter("timestamp") +"=======>anotherTimeStampTimestamp====>" +request.url().queryParameter("anotherTimeStampTimestamp"));
+        log.info("timestamp===>" + request.url().queryParameter("timestamp") + "=======>anotherTimeStampTimestamp====>" + request.url().queryParameter("anotherTimeStampTimestamp"));
 
         Request newReq = request.newBuilder()
-            /*请求时加入信息*/
-            .addHeader("source", "test")
-            .build();
+                /*请求时加入信息*/
+                .addHeader("source", "test")
+                .build();
         return chain.proceed(newReq);
     }
 
