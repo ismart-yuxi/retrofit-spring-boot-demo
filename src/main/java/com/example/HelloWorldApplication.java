@@ -36,11 +36,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-
-/**/
 @RetrofitScan("com.example.retrofit")
-public class HelloworldApplication {
+public class HelloWorldApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(HelloWorldApplication.class, args);
+    }
 
 //  @Bean
 //  @ConditionalOnMissingBean
@@ -48,8 +49,4 @@ public class HelloworldApplication {
 //    return Retrofit2ConverterFactory.create();
 //  }
 
-  public static void main(String[] args) {
-    SpringApplication.run(HelloworldApplication.class, args);
-  }
 }
-

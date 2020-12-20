@@ -16,7 +16,7 @@ public class LivedWeatherEntity {
     private String callback;
 
     /**
-     *  如果您使用的是react、vue、angular请填写值: 1
+     * 如果您使用的是react、vue、angular请填写值: 1
      */
     private String vue = "1";
 }

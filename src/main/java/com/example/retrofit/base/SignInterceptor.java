@@ -41,10 +41,10 @@ public class SignInterceptor extends BasePathMatchInterceptor {
             .url(newUrl)
             .build();
 
-         request.url().queryParameterNames().forEach(param -> {
+        request.url().queryParameterNames().forEach(param -> {
 
-             out.print(param +"============"+ request.url().queryParameterValues(param));
-         });
+            out.print(param + "============" + request.url().queryParameterValues(param));
+        });
         out.println();
         return chain.proceed(newRequest);
     }
