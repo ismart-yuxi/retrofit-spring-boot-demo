@@ -21,7 +21,7 @@ retrofit:
   http-exception-message-formatter: com.github.lianjiatech.retrofit.spring.boot.interceptor.DefaultHttpExceptionMessageFormatter
   # 请求重试拦截器
   retry-interceptor: com.github.lianjiatech.retrofit.spring.boot.retry.DefaultRetryInterceptor
-  global-converter-factories: com.alibaba.fastjson.support.retrofit.Retrofit2ConverterFactory
+  global-converter-factories: retrofit2.converter.jackson.JacksonConverterFactory
 
   # 是否启用熔断降级
   enable-degrade: true
@@ -29,3 +29,13 @@ retrofit:
   degrade-type: sentinel
   # 资源名称解析器
   resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
+
+
+#某些小朋友说，不在配置文件里写地址就不叫动态参数
+example:
+   upload-service:
+      base-url: https://postman-echo.com/post
+   postman-service:
+      base-url: https://postman-echo.com/
+   weather-service:
+      base-url: https://tianqiapi.com/

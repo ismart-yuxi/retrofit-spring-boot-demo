@@ -31,12 +31,9 @@
  */
 package com.example;
 
-import com.alibaba.fastjson.support.retrofit.Retrofit2ConverterFactory;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 
@@ -45,39 +42,14 @@ import org.springframework.context.annotation.Bean;
 public class HelloworldApplication {
 
 
-  @Bean
-  @ConditionalOnMissingBean
-  public Retrofit2ConverterFactory retrofit2ConverterFactory() {
-    return Retrofit2ConverterFactory.create();
-  }
+//  @Bean
+//  @ConditionalOnMissingBean
+//  public Retrofit2ConverterFactory retrofit2ConverterFactory() {
+//    return Retrofit2ConverterFactory.create();
+//  }
 
   public static void main(String[] args) {
     SpringApplication.run(HelloworldApplication.class, args);
   }
 }
 
-//@RestController
-//class HelloworldController {
-//  private static final Logger log = LoggerFactory.getLogger(HelloworldController.class);
-//
-//  @Value("${version:1.0}")
-//  public String version;
-//
-//  @GetMapping("/hello/{name}")
-//  public Map<String, String> hello(@Value("${greeting}") String greetingTemplate, @PathVariable String name) throws UnknownHostException {
-//  	log.info("Recevied hello request for: " + name);
-//    Map<String, String> response = new HashMap<>();
-//
-//    String hostname = InetAddress.getLocalHost().getHostName();
-//    String greeting = greetingTemplate
-//        .replaceAll("\\$name", name)
-//        .replaceAll("\\$hostname", hostname)
-//        .replaceAll("\\$version", version);
-//
-//    response.put("greeting", greeting);
-//    response.put("version", version);
-//    response.put("hostname", hostname);
-//
-//    return response;
-//  }
-//}
