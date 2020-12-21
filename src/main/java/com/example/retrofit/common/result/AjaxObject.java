@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author wangyuxi
+ */
 @Data
 public class AjaxObject<T> implements Serializable {
 
@@ -23,23 +26,8 @@ public class AjaxObject<T> implements Serializable {
      */
     private T result;
 
-    public static <T> AjaxObject<T> basicAjax(AjaxCodeEnum ajaxCodeEnum, T result) {
-        AjaxObject ajaxObject = new AjaxObject();
-        ajaxObject.code = ajaxCodeEnum.getCode();
-        ajaxObject.msg = ajaxCodeEnum.getName();
-        ajaxObject.result = result;
-        return ajaxObject;
-    }
 
-    public static <T> AjaxObject<T> customAjax(String code, String msg, T result) {
-        AjaxObject ajaxObject = new AjaxObject();
-        ajaxObject.code = code;
-        ajaxObject.msg = msg;
-        ajaxObject.result = result;
-        return ajaxObject;
-    }
-
-    public static <T> AjaxObject<T> customOk(String msg, T result) {
+    public static <T> AjaxObject<T> OK(String msg, T result) {
         AjaxObject ajaxObject = new AjaxObject();
         ajaxObject.code = AjaxCodeEnum.OK.getCode();
         ajaxObject.msg = msg;
@@ -50,7 +38,7 @@ public class AjaxObject<T> implements Serializable {
         return ajaxObject;
     }
 
-    public static <T> AjaxObject<T> customFail(String msg, T result) {
+    public static <T> AjaxObject<T> FAIL(String msg, T result) {
         AjaxObject ajaxObject = new AjaxObject();
         ajaxObject.code = AjaxCodeEnum.FAIL.getCode();
         ajaxObject.msg = msg;

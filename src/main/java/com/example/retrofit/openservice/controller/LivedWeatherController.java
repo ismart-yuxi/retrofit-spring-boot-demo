@@ -28,9 +28,12 @@ public class LivedWeatherController {
     }
 
 
-    /*
-    * 专业31项生活指数预报
-    * */
+    /**
+     * 专业31项生活指数预报
+     *
+     * @param requestParamMap  请求参数
+     * @return
+     */
     @GetMapping("/life/lifeRepo")
     public LifeResponse lifeRepo(@RequestParam Map<String, String> requestParamMap) {
         return livedWeatherService.lifeRepo(requestParamMap);
