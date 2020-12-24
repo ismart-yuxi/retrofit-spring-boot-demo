@@ -1,7 +1,7 @@
 package com.example.retrofit.controller;
 
-import com.example.retrofit.domain.User;
 import com.example.retrofit.remote.HttpApi;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -11,11 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
-import static java.lang.Math.random;
+import static java.lang.System.out;
 
 @RestController
 @Slf4j
@@ -26,17 +24,23 @@ public class RetrofitController {
     private HttpApi userService;
 
     @GetMapping("/user")
-    public String  userPerformed() {
-        User user = new User();
-        user.setUsername(UUID.randomUUID().toString());
-        user.setPassword(UUID.randomUUID().toString());
-        user.setAge((int)(random()*100)+1);
-        userService.addUser(user);
-        userService.updateUser(user);
-        List<User> users = userService.users();
-        System.out.println(users);
-        userService.user(users.get(0).getId());
-        userService.deleteUser(users.get(0).getId());
+    public String  userPerformed() throws JsonProcessingException {
+        String json = "{\n" +
+            "  \"username\" : \"998b436f-7347-4e20-b9a8-16a580128d68\",\n" +
+            "  \"age\" : 14,\n" +
+            "  \"password\" : \"fe1ae6a5-7675-43bb-91ef-68e719c033e4\"\n" +
+            "}";
+
+        userService.addUser(json);
+
+//        UseruserService.user(user.getId());
+//
+//        userService.updateUser(jsonString);
+
+
+        String users = userService.users();
+        out.println(users);
+//        userService.deleteUser(users.get(0).getId());
         return "v success";
     }
 

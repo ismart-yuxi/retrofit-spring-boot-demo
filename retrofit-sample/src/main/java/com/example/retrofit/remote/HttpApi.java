@@ -1,7 +1,6 @@
 package com.example.retrofit.remote;
 
 
-import com.example.retrofit.domain.User;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
 import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
@@ -9,7 +8,6 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import retrofit2.http.*;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -65,16 +63,16 @@ public interface HttpApi {
      * 对于Retrofit而言，方法上的/开头表示直接接在domain后面的端点。
      */
     @GET("user/{id}")
-    User user(@Path("id") Long id);
+    String user(@Path("id") Long id);
 
     @GET("user")
-    List<User> users();
+    String users();
 
     @POST("user")
-    String addUser(@Body User user);
+    String addUser(@Body String user);
 
     @PUT("user")
-    String updateUser(@Body User user);
+    String updateUser(@Body String user);
 
     @DELETE("user/{id}")
     String deleteUser(@Path("id") Long id);
