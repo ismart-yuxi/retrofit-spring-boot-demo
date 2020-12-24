@@ -9,7 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -49,12 +53,12 @@ public class UserController {
 
 
     @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file) {
+    public String upload(@RequestParam("file") MultipartFile file) throws UnsupportedEncodingException {
         if (file.isEmpty()) {
             return "上传失败，请选择文件";
         }
 
-        String fileName = file.getOriginalFilename();
+        String fileName = URLDecoder.decode(Objects.requireNonNull(file.getOriginalFilename()), StandardCharsets.UTF_8.name());
         String filePath = "C:/";
         File dest = new File(filePath + fileName);
         try {

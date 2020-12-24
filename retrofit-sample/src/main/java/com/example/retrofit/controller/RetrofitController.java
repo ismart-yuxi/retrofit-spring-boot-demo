@@ -55,7 +55,7 @@ public class RetrofitController {
         // 对文件名使用URLEncoder进行编码
         String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), "utf-8");
         okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(MediaType.parse("multipart/form-data"), file.getBytes());
-        httpApi.upload(MultipartBody.Part.createFormData("file", fileName, requestBody));
+        httpApi.upload(MultipartBody.Part.createFormData("file", fileName, requestBody)).execute();
         return "success";
     }
 
