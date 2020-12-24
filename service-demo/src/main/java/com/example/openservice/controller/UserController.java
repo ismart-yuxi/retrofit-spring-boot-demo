@@ -42,7 +42,7 @@ public class UserController {
         return userService.user(id);
     }
 
-    @GetMapping("/user/")
+    @GetMapping("/user")
     public List<User> users() {
         return (List<User>) userService.AllUser();
     }

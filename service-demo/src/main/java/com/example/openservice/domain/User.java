@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends com.example.openservice.domain.Base implements Serializable {
-
+public class User implements Serializable {
+    private Long id;
     private String username;
     private int age;
     private String password;
