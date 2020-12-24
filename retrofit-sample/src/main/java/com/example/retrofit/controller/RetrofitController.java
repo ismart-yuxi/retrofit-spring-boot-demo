@@ -46,6 +46,8 @@ public class RetrofitController {
             out.println(x.toString());
         });
 
+        out.println(httpApi.user(10000L));
+
         out.println(new String(Objects.requireNonNull(httpApi.deleteUser(1608823107168L).execute().body()).bytes()));
         return "success";
     }
