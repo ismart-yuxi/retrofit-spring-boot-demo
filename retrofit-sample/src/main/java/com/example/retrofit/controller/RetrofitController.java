@@ -1,7 +1,7 @@
 package com.example.retrofit.controller;
 
+import com.example.retrofit.domain.User;
 import com.example.retrofit.remote.HttpApi;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -21,35 +21,41 @@ import static java.lang.System.out;
 public class RetrofitController {
 
     @Autowired
-    private HttpApi userService;
+    private HttpApi httpApi;
 
     @GetMapping("/user")
-    public String  userPerformed() throws JsonProcessingException {
-        String json = "{\n" +
-            "  \"username\" : \"998b436f-7347-4e20-b9a8-16a580128d68\",\n" +
-            "  \"age\" : 14,\n" +
-            "  \"password\" : \"fe1ae6a5-7675-43bb-91ef-68e719c033e4\"\n" +
-            "}";
+    public String userPerformed() throws IOException {
+        User user = new User();
+        user.setAge(23);
+        user.setPassword("123456");
+        user.setUsername("xxzx");
 
-        userService.addUser(json);
+        httpApi.addUser(user).execute();
 
-//        UseruserService.user(user.getId());
-//
-//        userService.updateUser(jsonString);
+        httpApi.users().execute().body().forEach(x -> {
+            out.println(x.toString());
+        });
 
+        user.setId(1608823710522L);
+        user.setUsername("KKKKKKKKKKKKKKKKKK");
+        user.setPassword("asdfasdfsadfsdf");
+        user.setAge(60);
+        out.println(new String(Objects.requireNonNull(httpApi.updateUser(user).execute().body()).bytes()));
 
-        String users = userService.users();
-        out.println(users);
-//        userService.deleteUser(users.get(0).getId());
-        return "v success";
+        Objects.requireNonNull(httpApi.users().execute().body()).forEach(x -> {
+            out.println(x.toString());
+        });
+
+        out.println(new String(Objects.requireNonNull(httpApi.deleteUser(1608823107168L).execute().body()).bytes()));
+        return "success";
     }
 
     @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file) throws IOException {
         // 对文件名使用URLEncoder进行编码
         String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), "utf-8");
-        okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(MediaType.parse("multipart/form-data"),file.getBytes());
-        userService.upload(MultipartBody.Part.createFormData("file", fileName, requestBody));
+        okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(MediaType.parse("multipart/form-data"), file.getBytes());
+        httpApi.upload(MultipartBody.Part.createFormData("file", fileName, requestBody));
         return "success";
     }
 

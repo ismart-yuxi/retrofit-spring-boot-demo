@@ -1,13 +1,20 @@
 package com.example.retrofit.remote;
 
 
+import com.example.retrofit.domain.User;
+import com.example.retrofit.remote.fallback.HttpApiFallback;
+import com.example.retrofit.remote.fallback.HttpDegradeFallbackFactory;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
 import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,7 +46,7 @@ import java.util.concurrent.TimeUnit;
  * 请更改操作系统 host 127.0.0.1 tianqiapi.com  跟进作者在重试拦截器中加入重试调试日志的输出
  */
 @Retry
-@RetrofitClient(baseUrl = "http://localhost:8080/openservice/")
+@RetrofitClient(baseUrl = "http://localhost:8080/openservice/",fallback = HttpApiFallback.class,fallbackFactory = HttpDegradeFallbackFactory.class)
 public interface HttpApi {
 
     /**
@@ -63,22 +70,22 @@ public interface HttpApi {
      * 对于Retrofit而言，方法上的/开头表示直接接在domain后面的端点。
      */
     @GET("user/{id}")
-    String user(@Path("id") Long id);
+    Response<User> user(@Path("id") Long id);
 
     @GET("user")
-    String users();
+    Call<List<User>> users();
 
     @POST("user")
-    String addUser(@Body String user);
+    Call<ResponseBody> addUser(@Body User user);
 
     @PUT("user")
-    String updateUser(@Body String user);
+    Call<ResponseBody> updateUser(@Body User user);
 
     @DELETE("user/{id}")
-    String deleteUser(@Path("id") Long id);
+    Call<ResponseBody> deleteUser(@Path("id") Long id);
 
     @POST("upload")
     @Multipart
-    String upload(@Part MultipartBody.Part file);
+    Call<ResponseBody> upload(@Part MultipartBody.Part file);
 
 }
