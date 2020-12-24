@@ -13,6 +13,17 @@ public class UserService {
 
     private static final Map<Long, User> MOKE_DB_DATA = new HashMap<>();
 
+    static {
+        User _user1 = User.builder().id(10000L).age(23).username("username1").password("dddddddddddddddddddddd").build();
+        User _user2 = User.builder().id(10001L).age(24).username("username2").password("hhhhhhhhhhhhhh").build();
+        User _user3 = User.builder().id(10002L).age(25).username("username3").password("mmmmmmmmmmmmmmm").build();
+
+        MOKE_DB_DATA.put(10000L,_user1);
+        MOKE_DB_DATA.put(10001L,_user2);
+        MOKE_DB_DATA.put(10002L,_user3);
+    }
+
+
     public void  addUser(User user) {
         Long key = System.currentTimeMillis();
         user.setId(key);
