@@ -33,5 +33,6 @@ retrofit:
     resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
 
 test:
+    baseUrl: http://localhost:8080/openservice/
     accessKeyId: sdfsdfdsf
     accessKeySecret: sadfsadfsdfsdf

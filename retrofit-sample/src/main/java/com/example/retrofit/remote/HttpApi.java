@@ -47,7 +47,7 @@ import java.util.concurrent.TimeUnit;
  * 请更改操作系统 host 127.0.0.1 tianqiapi.com  跟进作者在重试拦截器中加入重试调试日志的输出
  */
 @Retry
-@RetrofitClient(baseUrl = "http://localhost:8080/openservice/",fallback = HttpApiFallback.class,fallbackFactory = HttpDegradeFallbackFactory.class)
+@RetrofitClient(baseUrl = "${test.baseUrl}",fallback = HttpApiFallback.class,fallbackFactory = HttpDegradeFallbackFactory.class)
 @Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}", exclude = {"/openservice"})
 public interface HttpApi {
 
