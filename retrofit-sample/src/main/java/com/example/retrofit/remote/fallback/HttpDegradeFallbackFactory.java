@@ -3,6 +3,7 @@ package com.example.retrofit.remote.fallback;
 import com.example.retrofit.domain.User;
 import com.example.retrofit.remote.HttpApi;
 import com.github.lianjiatech.retrofit.spring.boot.degrade.FallbackFactory;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,11 @@ import retrofit2.Response;
 import java.util.List;
 
 @Component
+@Slf4j
 public class HttpDegradeFallbackFactory  implements FallbackFactory<HttpApi> {
     @Override
     public HttpApi create(Throwable cause) {
+        log.error("触发熔断了! ", cause.getMessage(), cause);
         return new HttpApi() {
             @Override
             public Response<User> user(Long id) {

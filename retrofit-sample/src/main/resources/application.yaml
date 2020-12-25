@@ -31,3 +31,7 @@ retrofit:
     degrade-type: sentinel
     # 熔断资源名称解析器
     resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
+
+test:
+    accessKeyId: sdfsdfdsf
+    accessKeySecret: sadfsadfsdfsdf

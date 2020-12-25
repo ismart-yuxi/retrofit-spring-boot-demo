@@ -2,6 +2,7 @@ package com.example.retrofit.remote;
 
 
 import com.example.retrofit.domain.User;
+import com.example.retrofit.ext.Sign;
 import com.example.retrofit.remote.fallback.HttpApiFallback;
 import com.example.retrofit.remote.fallback.HttpDegradeFallbackFactory;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
@@ -47,6 +48,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Retry
 @RetrofitClient(baseUrl = "http://localhost:8080/openservice/",fallback = HttpApiFallback.class,fallbackFactory = HttpDegradeFallbackFactory.class)
+@Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}", exclude = {"/openservice"})
 public interface HttpApi {
 
     /**
