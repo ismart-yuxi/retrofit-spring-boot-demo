@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class HttpApiFallback implements HttpApi {
@@ -40,6 +41,11 @@ public class HttpApiFallback implements HttpApi {
 
     @Override
     public Call<ResponseBody> upload(MultipartBody.Part file) {
+        return null;
+    }
+
+    @Override
+    public Response<Map<String, Object>> dynamicUrl(String url, String name) {
         return null;
     }
 }

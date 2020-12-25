@@ -17,6 +17,7 @@ import retrofit2.Response;
 import retrofit2.http.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -49,7 +50,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Retry
 @RetrofitClient(baseUrl = "${test.baseUrl}",fallback = HttpApiFallback.class,fallbackFactory = HttpDegradeFallbackFactory.class)
-@Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}", exclude = {"/openservice"})
+@Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}")
 
 /*默认策略情况下，每5s平均响应时间不得超过500ms，否则启用熔断降级*/
 @Degrade(count = 500)
@@ -93,5 +94,17 @@ public interface HttpApi {
     @POST("upload")
     @Multipart
     Call<ResponseBody> upload(@Part MultipartBody.Part file);
+
+    /**
+     * 使用@url注解可实现动态URL。
+     *
+     * 注意：@url必须放在方法参数的第一个位置。原有定义@GET、@POST等注解上，不需要定义端点路径！
+     *
+     * @param url
+     * @param name
+     * @return
+     */
+    @GET
+    Response<Map<String, Object>> dynamicUrl(@Url String url, @Query("name") String name);
 
 }

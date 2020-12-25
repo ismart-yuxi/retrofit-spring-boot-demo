@@ -52,6 +52,13 @@ public class RetrofitController {
         return "success";
     }
 
+    @GetMapping("/dynamicUrlPerformed")
+    public boolean dynamicUrlPerformed() throws IOException {
+        boolean dynamicUrl1 = httpApi.dynamicUrl("http://localhost:9000/openservice/dynamic1/url1/","url1").body().get("dynamicUrl1").equals("/dynamic1/url1/url1");
+        boolean dynamicUrl2 =  httpApi.dynamicUrl("http://localhost:9000/openservice/dynamic2/url2/","url2").body().get("dynamicUrl2").equals("/dynamic2/url2/url2");
+        return dynamicUrl1 && dynamicUrl2;
+    }
+
     @PostMapping("/upload")
     public String upload(@RequestParam("file") MultipartFile file) throws IOException {
         // 对文件名使用URLEncoder进行编码
