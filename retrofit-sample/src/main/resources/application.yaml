@@ -1,7 +1,16 @@
 server:
     port: 8081
+
+spring:
+    application:
+        name: retrofit-sample
+# 在springcloud开发环境下，请启用相应的jar包，详情看maven pom的注释
+#    cloud:
+#        sentinel:
+#            transport:
+#                dashboard: localhost:8080
+#                heartbeat-interval-ms: 500
 retrofit:
-    enable-response-call-adapter: true
     # 启用日志打印
     enable-log: true
     # 连接池配置
@@ -33,6 +42,6 @@ retrofit:
     resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
 
 test:
-    baseUrl: http://localhost:8080/openservice/
+    baseUrl: http://localhost:9000/openservice/
     accessKeyId: sdfsdfdsf
     accessKeySecret: sadfsadfsdfsdf

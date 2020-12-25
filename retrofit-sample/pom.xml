@@ -36,6 +36,16 @@
           <version>2.2.3</version>
       </dependency>
 
+
+      <!--springcloud环境下请启用该maven坐标，接口上的degrade注解忽略 -->
+<!--      <dependency>-->
+<!--          <groupId>com.alibaba.cloud</groupId>-->
+<!--          <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+<!--          <version>2.2.3.RELEASE</version>-->
+<!--      </dependency>-->
+
+
+      <!--普通降级，请启用该maven坐标，请请求接口上加入@Dgrade注解-->
       <dependency>
           <groupId>com.alibaba.csp</groupId>
           <artifactId>sentinel-core</artifactId>

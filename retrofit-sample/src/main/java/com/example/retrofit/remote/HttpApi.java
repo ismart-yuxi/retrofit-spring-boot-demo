@@ -7,6 +7,7 @@ import com.example.retrofit.remote.fallback.HttpApiFallback;
 import com.example.retrofit.remote.fallback.HttpDegradeFallbackFactory;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
+import com.github.lianjiatech.retrofit.spring.boot.degrade.Degrade;
 import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -49,6 +50,9 @@ import java.util.concurrent.TimeUnit;
 @Retry
 @RetrofitClient(baseUrl = "${test.baseUrl}",fallback = HttpApiFallback.class,fallbackFactory = HttpDegradeFallbackFactory.class)
 @Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}", exclude = {"/openservice"})
+
+/*默认策略情况下，每5s平均响应时间不得超过500ms，否则启用熔断降级*/
+@Degrade(count = 500)
 public interface HttpApi {
 
     /**
