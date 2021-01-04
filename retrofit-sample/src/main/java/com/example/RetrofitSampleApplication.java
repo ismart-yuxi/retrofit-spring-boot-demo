@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class RetrofitSample
+public class RetrofitSampleApplication
 {
     public static void main( String[] args )
     {
-        SpringApplication.run(RetrofitSample.class, args);
+        SpringApplication.run(RetrofitSampleApplication.class, args);
     }
 }

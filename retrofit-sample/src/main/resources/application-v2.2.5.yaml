@@ -1,0 +1,66 @@
+server:
+    port: 8081
+
+spring:
+    application:
+        name: retrofit-sample
+# 在springcloud开发环境下，请启用相应的jar包，详情看maven pom的注释
+#    cloud:
+#        sentinel:
+#            transport:
+#                dashboard: localhost:8080
+#                heartbeat-interval-ms: 500
+retrofit:
+    #  全局转换器工厂
+    #  retrofit-spring-boot-starter支持通过retrofit.global-converter-factories配置全局数据转换器工厂，
+    #  转换器工厂实例优先从Spring容器获取，如果没有获取到，则反射创建。
+    #  默认的全局数据转换器工厂是retrofit2.converter.jackson.JacksonConverterFactory，
+    #  你可以直接通过spring.jackson.*配置jackson序列化规则，配置可参考Customize the Jackson ObjectMapper！
+    global-converter-factories:
+        - retrofit2.converter.jackson.JacksonConverterFactory
+    # 全局调用适配器工厂
+    global-call-adapter-factories:
+        - com.github.lianjiatech.retrofit.spring.boot.core.BodyCallAdapterFactory
+        - com.github.lianjiatech.retrofit.spring.boot.core.ResponseCallAdapterFactory
+    # 熔断降级配置
+    degrade:
+        # 是否启用熔断降级
+        enable: true
+        # 熔断降级实现方式
+        degrade-type: sentinel
+        # 熔断资源名称解析器
+        resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
+    # 重试配置
+    retry:
+        # 是否启用全局重试  2.2.5 新增
+        enable-global-retry: true
+        # 全局重试间隔时间  2.2.5 新增
+        global-interval-ms: 20
+        # 全局最大重试次数  2.2.5 新增
+        global-max-retries: 10
+        # 全局重试规则    2.2.5 新增
+        global-retry-rules:
+            - response_status_not_2xx
+        # 重试拦截器
+        retry-interceptor: com.github.lianjiatech.retrofit.spring.boot.retry.DefaultRetryInterceptor
+    # 日志打印配置
+    log:
+        # 启用日志打印
+        enable: true
+        # 日志打印拦截器
+        logging-interceptor: com.github.lianjiatech.retrofit.spring.boot.interceptor.DefaultLoggingInterceptor
+    # 连接池配置
+    #    默认情况下，所有通过Retrofit发送的http请求都会使用max-idle-connections=5 keep-alive-second=300的默认连接池。
+    #    当然，我们也可以在配置文件中配置多个自定义的连接池，然后通过
+    #    @RetrofitClient的poolName属性来指定使用。比如我们要让某个接口下的请求全部使用poolName=test1的连接池，
+    pool:
+        test1:
+           max-idle-connections: 3
+           keep-alive-second: 100
+        test2:
+           max-idle-connections: 5
+           keep-alive-second: 50
+test:
+    baseUrl: http://localhost:9000/openservice/
+    accessKeyId: sdfsdfdsf
+    accessKeySecret: sadfsadfsdfsdf

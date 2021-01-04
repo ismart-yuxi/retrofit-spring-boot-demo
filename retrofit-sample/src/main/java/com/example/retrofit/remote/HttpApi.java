@@ -8,6 +8,7 @@ import com.example.retrofit.remote.fallback.HttpDegradeFallbackFactory;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
 import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
 import com.github.lianjiatech.retrofit.spring.boot.degrade.Degrade;
+import com.github.lianjiatech.retrofit.spring.boot.interceptor.LogStrategy;
 import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -46,10 +47,16 @@ import java.util.concurrent.TimeUnit;
  * OCCUR_EXCEPTION：发生任意异常时执行重试；
  * 默认响应状态码不是2xx或者发生IO异常时自动进行重试。需要的话，你也可以继承BaseRetryInterceptor实现自己的请求重试拦截器，然后将其配置上去。
  *
- * 请更改操作系统 host 127.0.0.1 tianqiapi.com  跟进作者在重试拦截器中加入重试调试日志的输出
+ *
+ * logStrategy = LogStrategy.BODY  把请求第三方接口的收到的返回值,打印出日志
+ *
  */
 @Retry
-@RetrofitClient(baseUrl = "${test.baseUrl}",fallback = HttpApiFallback.class,fallbackFactory = HttpDegradeFallbackFactory.class)
+@RetrofitClient(baseUrl = "${test.baseUrl}",
+    fallback = HttpApiFallback.class,
+    fallbackFactory = HttpDegradeFallbackFactory.class,
+    logStrategy = LogStrategy.BODY
+)
 @Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}")
 
 /*默认策略情况下，每5s平均响应时间不得超过500ms，否则启用熔断降级*/

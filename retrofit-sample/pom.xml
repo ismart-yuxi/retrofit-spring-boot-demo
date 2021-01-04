@@ -33,11 +33,13 @@
       <dependency>
           <groupId>com.github.lianjiatech</groupId>
           <artifactId>retrofit-spring-boot-starter</artifactId>
-          <version>2.2.3</version>
+<!--          <version>2.2.3</version>-->
+          <!--2.2.5版本变化比较大，尤其配置文件，请注意查看配置说明-->
+          <version>2.2.5</version>
       </dependency>
 
 
-      <!--springcloud环境下请启用该maven坐标，接口上的degrade注解忽略 -->
+      <!--springcloud环境下请启用该maven坐标，此时可以忽略接口上的degrade注解 -->
 <!--      <dependency>-->
 <!--          <groupId>com.alibaba.cloud</groupId>-->
 <!--          <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
