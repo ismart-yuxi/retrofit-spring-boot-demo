@@ -54,6 +54,11 @@ public class HttpDegradeFallbackFactory  implements FallbackFactory<HttpApi> {
             public Response<Map<String, Object>> dynamicUrl(String url, String name) {
                 return null;
             }
+
+            @Override
+            public Response<ResponseBody> download() {
+                return null;
+            }
         };
     }
 }

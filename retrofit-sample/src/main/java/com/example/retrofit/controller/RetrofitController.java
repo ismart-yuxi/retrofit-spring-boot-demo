@@ -9,9 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Objects;
+import java.util.UUID;
 
 import static java.lang.System.out;
 
@@ -49,13 +53,40 @@ public class RetrofitController {
         out.println(httpApi.user(10000L));
 
         out.println(new String(Objects.requireNonNull(httpApi.deleteUser(1608823107168L).execute().body()).bytes()));
+
+
+        // 二进制流
+        InputStream is =  httpApi.download().body().byteStream();
+
+        saveFile(is);
+
         return "success";
     }
 
+    private void saveFile(InputStream is) throws IOException {
+        // 具体如何处理二进制流，由业务自行控制。这里以写入文件为例
+        File tempDirectory = new File("temp");
+        if (!tempDirectory.exists()) {
+            tempDirectory.mkdir();
+        }
+        File file = new File(tempDirectory, UUID.randomUUID().toString());
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileOutputStream fos = new FileOutputStream(file);
+        byte[] b = new byte[1024];
+        int length;
+        while ((length = is.read(b)) > 0) {
+            fos.write(b, 0, length);
+        }
+        is.close();
+        fos.close();
+    }
+
     @GetMapping("/dynamicUrlPerformed")
-    public boolean dynamicUrlPerformed() throws IOException {
-        boolean dynamicUrl1 = httpApi.dynamicUrl("http://localhost:9000/openservice/dynamic1/url1/","url1").body().get("dynamicUrl1").equals("/dynamic1/url1/url1");
-        boolean dynamicUrl2 =  httpApi.dynamicUrl("http://localhost:9000/openservice/dynamic2/url2/","url2").body().get("dynamicUrl2").equals("/dynamic2/url2/url2");
+    public boolean dynamicUrlPerformed() {
+        boolean dynamicUrl1 = httpApi.dynamicUrl("http://localhost:9000/openservice/dynamic1/url1/", "url1").body().get("dynamicUrl1").equals("/dynamic1/url1/url1");
+        boolean dynamicUrl2 = httpApi.dynamicUrl("http://localhost:9000/openservice/dynamic2/url2/", "url2").body().get("dynamicUrl2").equals("/dynamic2/url2/url2");
         return dynamicUrl1 && dynamicUrl2;
     }
 

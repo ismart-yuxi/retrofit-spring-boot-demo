@@ -16,7 +16,7 @@ public class WebAppConfigurer extends WebMvcConfigurationSupport {
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor())
-            .addPathPatterns("/**");
+            .addPathPatterns("/**").excludePathPatterns("/openservice/download");
         super.addInterceptors(registry);
     }
 

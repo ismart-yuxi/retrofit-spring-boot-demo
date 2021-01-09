@@ -4,6 +4,11 @@ import com.example.openservice.domain.User;
 import com.example.openservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +17,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,6 +56,17 @@ public class UserController {
     @GetMapping("/user")
     public List<User> users() {
         return (List<User>) userService.AllUser();
+    }
+
+
+    @GetMapping("/download")
+    public  ResponseEntity<byte[]> download() throws IOException {
+        String dfileName = new String("file_download".getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", dfileName);
+        Path filePath = ResourceUtils.getFile("classpath:application.yaml").toPath();
+        return new ResponseEntity<>(Files.readAllBytes(filePath), headers, HttpStatus.CREATED);
     }
 
 

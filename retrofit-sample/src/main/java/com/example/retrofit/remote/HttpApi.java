@@ -114,4 +114,11 @@ public interface HttpApi {
     @GET
     Response<Map<String, Object>> dynamicUrl(@Url String url, @Query("name") String name);
 
+
+    /**
+     * 调用下载
+     * @return   Response<ResponseBody>
+     */
+    @GET("download")
+    Response<ResponseBody> download();
 }
