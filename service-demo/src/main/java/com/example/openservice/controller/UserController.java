@@ -88,4 +88,15 @@ public class UserController {
         }
         return "上传失败！";
     }
+
+    @GetMapping("/returnValueString")
+    public String returnValueString() {
+        return System.currentTimeMillis() + "";
+    }
+
+
+    @GetMapping("/returnValueBoolean")
+    public Boolean  returnValueBoolean() {
+        return Boolean.TRUE;
+    }
 }

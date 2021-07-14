@@ -13,12 +13,15 @@ import retrofit2.Response;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Administrator
+ */
 @Component
 @Slf4j
 public class HttpDegradeFallbackFactory  implements FallbackFactory<HttpApi> {
     @Override
     public HttpApi create(Throwable cause) {
-        log.error("触发熔断了! ", cause.getMessage(), cause);
+        log.error("触发熔断了! {0} {1}", cause.getMessage(), cause);
         return new HttpApi() {
             @Override
             public Response<User> user(Long id) {
@@ -57,6 +60,16 @@ public class HttpDegradeFallbackFactory  implements FallbackFactory<HttpApi> {
 
             @Override
             public Response<ResponseBody> download() {
+                return null;
+            }
+
+            @Override
+            public String returnValueString() {
+                return null;
+            }
+
+            @Override
+            public Boolean returnValueBoolean() {
                 return null;
             }
         };

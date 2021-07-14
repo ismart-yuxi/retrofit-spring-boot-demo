@@ -121,4 +121,20 @@ public interface HttpApi {
      */
     @GET("download")
     Response<ResponseBody> download();
+
+    /**
+     * v2.2.10 支持基础类型(`String`/`Long`/`Integer`/`Boolean`/`Float`/`Double`)作为接口返回值
+     * @param user
+     * @return
+     */
+    @GET("returnValueString")
+    String returnValueString();
+
+    /**
+     * v2.2.10 支持基础类型(`String`/`Long`/`Integer`/`Boolean`/`Float`/`Double`)作为接口返回值
+     * @param user
+     * @return
+     */
+    @GET("returnValueBoolean")
+    Boolean returnValueBoolean();
 }

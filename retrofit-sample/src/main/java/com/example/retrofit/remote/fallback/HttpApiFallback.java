@@ -53,4 +53,15 @@ public class HttpApiFallback implements HttpApi {
     public Response<ResponseBody> download() {
         return null;
     }
+
+    @Override
+    public String returnValueString() {
+        return null;
+    }
+
+    @Override
+    public Boolean returnValueBoolean() {
+        return null;
+    }
+
 }

@@ -36,7 +36,7 @@ public class RetrofitController {
 
         httpApi.addUser(user).execute();
 
-        httpApi.users().execute().body().forEach(x -> {
+        Objects.requireNonNull(httpApi.users().execute().body()).forEach(x -> {
             out.println(x.toString());
         });
 
@@ -56,7 +56,7 @@ public class RetrofitController {
 
 
         // 二进制流
-        InputStream is =  httpApi.download().body().byteStream();
+        InputStream is =  Objects.requireNonNull(httpApi.download().body()).byteStream();
 
         saveFile(is);
 
@@ -99,4 +99,17 @@ public class RetrofitController {
         return "success";
     }
 
+    @GetMapping("/testReturnString")
+    public String testReturnString() {
+        String val = httpApi.returnValueString();
+        log.info(val);
+        return val;
+    }
+
+    @GetMapping("/testReturnBoolean")
+    public Boolean testReturnBoolean() {
+        Boolean apiBoolean = httpApi.returnValueBoolean();
+        log.info(String.valueOf(apiBoolean));
+        return apiBoolean;
+    }
 }
