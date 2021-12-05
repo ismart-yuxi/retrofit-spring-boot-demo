@@ -30,9 +30,18 @@ retrofit:
         degrade-type: sentinel
         # 熔断资源名称解析器
         resource-name-parser: com.github.lianjiatech.retrofit.spring.boot.degrade.DefaultResourceNameParser
-    # 重试配置
+    # 全局连接超时时间  2.2.11 新增
+    global-connect-timeout-ms: 5000
+    # 全局读取超时时间  2.2.11 新增
+    global-read-timeout-ms: 5000
+    # 全局写入超时时间  2.2.11 新增
+    global-write-timeout-ms: 5000
+    # 全局完整调用超时时间  2.2.11 新增
+    global-call-timeout-ms: 0
+    # 重试配置(默认关闭)
     retry:
         # 是否启用全局重试  2.2.5 新增
+        #  2.2.16 之后默认关闭
         enable-global-retry: true
         # 全局重试间隔时间  2.2.5 新增
         global-interval-ms: 20
@@ -49,6 +58,10 @@ retrofit:
         enable: true
         # 日志打印拦截器
         logging-interceptor: com.github.lianjiatech.retrofit.spring.boot.interceptor.DefaultLoggingInterceptor
+        # 全局日志打印级别  2.2.6  新增
+        global-log-level: info
+        # 全局日志打印策略  2.2.6  新增
+        global-log-strategy: body
     # 连接池配置
     #    默认情况下，所有通过Retrofit发送的http请求都会使用max-idle-connections=5 keep-alive-second=300的默认连接池。
     #    当然，我们也可以在配置文件中配置多个自定义的连接池，然后通过

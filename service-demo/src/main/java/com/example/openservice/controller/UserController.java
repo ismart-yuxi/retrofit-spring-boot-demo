@@ -31,25 +31,25 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    public String  addUser(@RequestBody User user) {
+    public String addUser(@RequestBody User user) {
         userService.addUser(user);
         return "add success";
     }
 
     @PutMapping("/user")
-    public String  updateUser(@RequestBody User user) {
+    public String updateUser(@RequestBody User user) {
         userService.updateUser(user);
         return "update success";
     }
 
     @DeleteMapping("/user/{id}")
-    public String  deleteUser(@PathVariable Long id) {
+    public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "delete success";
     }
 
     @GetMapping("/user/{id}")
-    public User  user(@PathVariable Long id) {
+    public User user(@PathVariable Long id) {
         return userService.user(id);
     }
 
@@ -60,7 +60,7 @@ public class UserController {
 
 
     @GetMapping("/download")
-    public  ResponseEntity<byte[]> download() throws IOException {
+    public ResponseEntity<byte[]> download() throws IOException {
         String dfileName = new String("file_download".getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -96,7 +96,7 @@ public class UserController {
 
 
     @GetMapping("/returnValueBoolean")
-    public Boolean  returnValueBoolean() {
+    public Boolean returnValueBoolean() {
         return Boolean.TRUE;
     }
 }

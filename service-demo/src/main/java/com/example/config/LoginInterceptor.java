@@ -14,7 +14,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         String accessKeySecret = request.getHeader("accessKeySecret");
 
         if (null == accessKeyId || "".equals(accessKeyId) || null == accessKeySecret || "".equals(accessKeySecret)) {
-            error(response,"缺少头部信息");
+            error(response, "缺少头部信息");
             return false;
         }
         return super.preHandle(request, response, handler);

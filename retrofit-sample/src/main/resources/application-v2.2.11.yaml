@@ -63,11 +63,11 @@ retrofit:
     #    @RetrofitClient的poolName属性来指定使用。比如我们要让某个接口下的请求全部使用poolName=test1的连接池，
     pool:
         test1:
-           max-idle-connections: 3
-           keep-alive-second: 100
+            max-idle-connections: 3
+            keep-alive-second: 100
         test2:
-           max-idle-connections: 5
-           keep-alive-second: 50
+            max-idle-connections: 5
+            keep-alive-second: 50
 test:
     baseUrl: http://localhost:9000/openservice/
     accessKeyId: sdfsdfdsf

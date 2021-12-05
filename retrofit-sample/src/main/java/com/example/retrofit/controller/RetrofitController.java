@@ -24,8 +24,11 @@ import static java.lang.System.out;
 @RequestMapping(value = "/retrofit/")
 public class RetrofitController {
 
-    @Autowired
-    private HttpApi httpApi;
+    private final HttpApi httpApi;
+
+    public RetrofitController(HttpApi httpApi) {
+        this.httpApi = httpApi;
+    }
 
     @GetMapping("/user")
     public String userPerformed() throws IOException {
@@ -56,7 +59,7 @@ public class RetrofitController {
 
 
         // 二进制流
-        InputStream is =  Objects.requireNonNull(httpApi.download().body()).byteStream();
+        InputStream is = Objects.requireNonNull(httpApi.download().body()).byteStream();
 
         saveFile(is);
 

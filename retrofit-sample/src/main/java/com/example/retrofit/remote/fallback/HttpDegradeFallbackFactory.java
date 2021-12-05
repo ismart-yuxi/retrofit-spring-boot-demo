@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class HttpDegradeFallbackFactory  implements FallbackFactory<HttpApi> {
+public class HttpDegradeFallbackFactory implements FallbackFactory<HttpApi> {
     @Override
     public HttpApi create(Throwable cause) {
         log.error("触发熔断了! {0} {1}", cause.getMessage(), cause);

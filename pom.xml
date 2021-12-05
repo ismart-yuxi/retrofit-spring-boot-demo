@@ -10,7 +10,6 @@
     </parent>
 
 
-
     <name>retrofit-spring-boot-demo</name>
     <groupId>com.example</groupId>
     <artifactId>retrofit</artifactId>
@@ -19,17 +18,15 @@
     <description>Demo project for Spring Boot</description>
 
 
-
-
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
 
-	<dependencies>
+    <dependencies>
 
-	</dependencies>
+    </dependencies>
 
 
     <modules>

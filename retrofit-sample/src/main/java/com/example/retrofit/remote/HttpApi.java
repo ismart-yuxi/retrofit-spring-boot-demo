@@ -22,15 +22,25 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * v2.2.0 增加熔断器
+ * v2.2.14 未配置baseUrl并且未配置serviceId忽视该接口注册(baseurl 和 serviceId 必选一个)
+ * v2.2.15 ========> 2.1.13和2.2.14对于配置中心有bug，回退到2.2.12版本或升级到2.2.17
+ * v2.2.16 默认关闭全局请求重试
+ * v2.2.17 修复RetrofitClient在Apollo配置中心出现的bug(其中@RetrofitClient去掉@service注解)
  *
- * 2.2.0 增加熔断器
- *  https://github.com/LianjiaTech/retrofit-spring-boot-starter#%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7
+ *
+ * https://github.com/LianjiaTech/retrofit-spring-boot-starter#%E7%86%94%E6%96%AD%E9%99%8D%E7%BA%A7
  *
  * @author wangyuxi
  * @date 2020/08/24
  **/
 
-/*拦截器顺序为标记的顺序，其中全局过滤器排在最后*/
+/*
+ *
+ *   拦截器顺序为标记的顺序，其中全局过滤器排在最后
+ *
+ *
+ */
 
 //@Sign
 ///*2.2.2  @Intercept支持多拦截器配置*/
@@ -71,9 +81,9 @@ public interface HttpApi {
     @OkHttpClientBuilder
     static OkHttpClient.Builder okhttpClientBuilder() {
         return new OkHttpClient.Builder()
-                .connectTimeout(1, TimeUnit.SECONDS)
-                .readTimeout(1, TimeUnit.SECONDS)
-                .writeTimeout(1, TimeUnit.SECONDS);
+            .connectTimeout(1, TimeUnit.SECONDS)
+            .readTimeout(1, TimeUnit.SECONDS)
+            .writeTimeout(1, TimeUnit.SECONDS);
 
     }
 
@@ -117,7 +127,7 @@ public interface HttpApi {
 
     /**
      * 调用下载
-     * @return   Response<ResponseBody>
+     * @return Response<ResponseBody>
      */
     @GET("download")
     Response<ResponseBody> download();
