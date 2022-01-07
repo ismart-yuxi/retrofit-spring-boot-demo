@@ -41,17 +41,33 @@
             <!--2.2.10版本 代码优化 支持基础类型(`String`/`Long`/`Integer`/`Boolean`/`Float`/`Double`)作为接口返回值 -->
 
             <!--2.2.11版本 全局超时时间配置，以及代码的优化-->
-            <!--            <version>2.2.11</version>-->
+            <!--           <version>2.2.11</version>-->
 
             <!--2.2.12版本 封装原 retrofit 中的patch注解，支持@Patch 使用 -->
-            <!--            <version>2.2.12</version>-->
+            <!--           <version>2.2.12</version>-->
 
             <!--2.2.16版本 默认关闭全局请求重试 -->
             <!--                        <version>2.2.16</version>-->
 
             <!--2.2.17版本 @RetrofitClient去掉@service注解 修复在Apollo配置系统中出现的问题 -->
-            <version>2.2.17</version>
+            <!--           <version>2.2.17</version>          -->
 
+            <!-- 2.2.18版本  优化熔断降级调用  之前策略为有降级异常出现且必须有熔断接口时才会执行，非常不优雅，此次修改为 有降级异常时检测是否有熔断接口，有的话启用降级策略，没有则忽略-->
+<!--            catch (Throwable e) {-->
+<!--                    Throwable cause = e.getCause();-->
+<!--    -                Object fallbackObject = getFallbackObject(cause);-->
+<!--                    // 熔断逻辑-->
+<!--    -                if (cause instanceof RetrofitBlockException && degradeProperty.isEnable() && fallbackObject != null) {-->
+<!--    -                    return method.invoke(fallbackObject, args);-->
+<!--    +                        if (cause instanceof RetrofitBlockException && degradeProperty.isEnable()) {-->
+<!--    +                             Object fallbackObject = getFallbackObject(cause);-->
+<!--    +                             if (fallbackObject != null) {-->
+<!--    +                                     return method.invoke(fallbackObject, args);-->
+<!--    +                             }-->
+<!--                            }-->
+<!--                         throw cause;-->
+<!--                     }-->
+            <version>2.2.18</version>
 
         </dependency>
 
