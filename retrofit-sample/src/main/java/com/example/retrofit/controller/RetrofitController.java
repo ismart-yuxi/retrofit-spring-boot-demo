@@ -3,7 +3,6 @@ package com.example.retrofit.controller;
 import com.example.retrofit.domain.User;
 import com.example.retrofit.remote.HttpApi;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
@@ -100,10 +100,9 @@ public class RetrofitController {
         Arrays.stream(files).forEach(file -> {
 // 对文件名使用URLEncoder进行编码
             try {
-                String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), "utf-8");
-                okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(MediaType.parse("multipart/form-data"), file.getBytes());
-                MultipartBody.Part part = MultipartBody.Part.createFormData("files", fileName, requestBody);
-                builder.addPart(part);
+                String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), StandardCharsets.UTF_8.name());
+                okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(MultipartBody.FORM, file.getBytes());
+                builder.addFormDataPart("files", fileName, requestBody);
             } catch (IOException e) {
                 e.printStackTrace();
             }
