@@ -110,7 +110,7 @@ public interface HttpApi {
 
     @POST("upload")
     @Multipart
-    Call<ResponseBody> upload(@Part MultipartBody.Part file);
+    Call<ResponseBody> upload(@Part List<MultipartBody.Part> files);
 
     /**
      * 使用@url注解可实现动态URL。

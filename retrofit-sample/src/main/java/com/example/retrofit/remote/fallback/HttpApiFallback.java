@@ -40,9 +40,10 @@ public class HttpApiFallback implements HttpApi {
     }
 
     @Override
-    public Call<ResponseBody> upload(MultipartBody.Part file) {
+    public Call<ResponseBody> upload(List<MultipartBody.Part> files) {
         return null;
     }
+
 
     @Override
     public Response<Map<String, Object>> dynamicUrl(String url, String name) {

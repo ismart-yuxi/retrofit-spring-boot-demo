@@ -5,7 +5,6 @@ import com.example.retrofit.remote.HttpApi;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -94,11 +94,21 @@ public class RetrofitController {
     }
 
     @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file) throws IOException {
-        // 对文件名使用URLEncoder进行编码
-        String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), "utf-8");
-        okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(MediaType.parse("multipart/form-data"), file.getBytes());
-        httpApi.upload(MultipartBody.Part.createFormData("file", fileName, requestBody)).execute();
+    public String upload(@RequestParam("files") MultipartFile[] files) throws IOException {
+        final MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+        Arrays.stream(files).forEach(file -> {
+// 对文件名使用URLEncoder进行编码
+            try {
+                String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), "utf-8");
+                okhttp3.RequestBody requestBody = okhttp3.RequestBody.create(MediaType.parse("multipart/form-data"), file.getBytes());
+                MultipartBody.Part part = MultipartBody.Part.createFormData("files", fileName, requestBody);
+                builder.addPart(part);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        httpApi.upload(builder.build().parts()).execute();
         return "success";
     }
 

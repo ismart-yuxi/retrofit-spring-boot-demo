@@ -14,11 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -71,22 +71,21 @@ public class UserController {
 
 
     @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file) throws UnsupportedEncodingException {
-        if (file.isEmpty()) {
-            return "上传失败，请选择文件";
-        }
-
-        String fileName = URLDecoder.decode(Objects.requireNonNull(file.getOriginalFilename()), StandardCharsets.UTF_8.name());
-        String filePath = "C:/";
-        File dest = new File(filePath + fileName);
-        try {
-            file.transferTo(dest);
-            log.info("上传成功");
-            return "上传成功";
-        } catch (IOException e) {
-            log.error(e.toString(), e);
-        }
-        return "上传失败！";
+    public String upload(@RequestParam("files") MultipartFile[] files) {
+        Arrays.stream(files).forEach(file -> {
+            if (!file.isEmpty()) {
+                try {
+                    String fileName = URLDecoder.decode(Objects.requireNonNull(file.getOriginalFilename()), StandardCharsets.UTF_8.name());
+                    String filePath = "D:/";
+                    File dest = new File(filePath + fileName);
+                    file.transferTo(dest);
+                    log.info("上传成功");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return "上传成功";
     }
 
     @GetMapping("/returnValueString")

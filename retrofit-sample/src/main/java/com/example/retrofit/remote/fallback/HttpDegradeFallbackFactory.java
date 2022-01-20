@@ -49,7 +49,7 @@ public class HttpDegradeFallbackFactory implements FallbackFactory<HttpApi> {
             }
 
             @Override
-            public Call<ResponseBody> upload(MultipartBody.Part file) {
+            public Call<ResponseBody> upload(List<MultipartBody.Part> files) {
                 return null;
             }
 
