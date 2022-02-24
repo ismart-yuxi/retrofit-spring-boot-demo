@@ -67,10 +67,38 @@
 <!--                            }-->
 <!--                         throw cause;-->
 <!--                     }-->
-            <version>2.2.18</version>
+<!--          2.2.19版本  在开启全局重试时，支持通过@Retry(enable = false)手动关闭指定接口重试功能。-->
+<!--          2.2.20版本  自定义重试拦截器支持Spring Bean形式-->
+<!--          2.2.21版本 依赖升级，修复jackson和spring-security-crypto漏洞-->
+            <version>2.2.21</version>
 
         </dependency>
 
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>logging-interceptor</artifactId>
+            <version>3.14.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.14.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId>
+            <version>1.17.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-jackson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
 
         <!--springcloud环境下请启用该maven坐标，此时可以忽略接口上的degrade注解 -->
         <!--      <dependency>-->
@@ -85,11 +113,6 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
             <version>1.6.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
         </dependency>
 
         <dependency>
