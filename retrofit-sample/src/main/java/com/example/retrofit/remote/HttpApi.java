@@ -5,10 +5,11 @@ import com.example.retrofit.domain.User;
 import com.example.retrofit.ext.Sign;
 import com.example.retrofit.remote.fallback.HttpApiFallback;
 import com.example.retrofit.remote.fallback.HttpDegradeFallbackFactory;
-import com.github.lianjiatech.retrofit.spring.boot.annotation.OkHttpClientBuilder;
-import com.github.lianjiatech.retrofit.spring.boot.annotation.RetrofitClient;
-import com.github.lianjiatech.retrofit.spring.boot.degrade.Degrade;
-import com.github.lianjiatech.retrofit.spring.boot.interceptor.LogStrategy;
+import com.github.lianjiatech.retrofit.spring.boot.core.OkHttpClientBuilder;
+import com.github.lianjiatech.retrofit.spring.boot.core.RetrofitClient;
+import com.github.lianjiatech.retrofit.spring.boot.degrade.sentinel.SentinelDegrade;
+import com.github.lianjiatech.retrofit.spring.boot.log.LogStrategy;
+import com.github.lianjiatech.retrofit.spring.boot.log.Logging;
 import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -64,13 +65,12 @@ import java.util.concurrent.TimeUnit;
 @Retry
 @RetrofitClient(baseUrl = "${test.baseUrl}",
     fallback = HttpApiFallback.class,
-    fallbackFactory = HttpDegradeFallbackFactory.class,
-    logStrategy = LogStrategy.BODY
+    fallbackFactory = HttpDegradeFallbackFactory.class
 )
 @Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}")
-
+@Logging(logStrategy = LogStrategy.BODY)
 /*默认策略情况下，每5s平均响应时间不得超过500ms，否则启用熔断降级*/
-@Degrade(count = 500)
+@SentinelDegrade(count = 500)
 public interface HttpApi {
 
     /**
@@ -134,16 +134,12 @@ public interface HttpApi {
 
     /**
      * v2.2.10 支持基础类型(`String`/`Long`/`Integer`/`Boolean`/`Float`/`Double`)作为接口返回值
-     * @param user
-     * @return
      */
     @GET("returnValueString")
     String returnValueString();
 
     /**
      * v2.2.10 支持基础类型(`String`/`Long`/`Integer`/`Boolean`/`Float`/`Double`)作为接口返回值
-     * @param user
-     * @return
      */
     @GET("returnValueBoolean")
     Boolean returnValueBoolean();

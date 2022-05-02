@@ -1,7 +1,7 @@
 package com.example.retrofit.ext;
 
-import com.github.lianjiatech.retrofit.spring.boot.annotation.InterceptMark;
 import com.github.lianjiatech.retrofit.spring.boot.interceptor.BasePathMatchInterceptor;
+import com.github.lianjiatech.retrofit.spring.boot.interceptor.InterceptMark;
 
 import java.lang.annotation.*;
 
