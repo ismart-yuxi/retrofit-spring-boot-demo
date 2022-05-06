@@ -1,4 +1,4 @@
 spring:
     profiles:
-        active: v2.3.0
+        active: v2.3.1
 debug: true
