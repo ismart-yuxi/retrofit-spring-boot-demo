@@ -62,7 +62,6 @@ import java.util.concurrent.TimeUnit;
  * logStrategy = LogStrategy.BODY  把请求第三方接口的收到的返回值,打印出日志
  *
  */
-@Retry
 @RetrofitClient(baseUrl = "${test.baseUrl}",
     fallback = HttpApiFallback.class,
     fallbackFactory = HttpDegradeFallbackFactory.class
