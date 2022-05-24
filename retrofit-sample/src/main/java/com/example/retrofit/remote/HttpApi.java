@@ -64,7 +64,8 @@ import java.util.concurrent.TimeUnit;
  */
 @RetrofitClient(baseUrl = "${test.baseUrl}",
     fallback = HttpApiFallback.class,
-    fallbackFactory = HttpDegradeFallbackFactory.class
+    fallbackFactory = HttpDegradeFallbackFactory.class,
+    baseOkHttpClientBeanName = "testOkHttpClient"
 )
 @Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}")
 @Logging(logStrategy = LogStrategy.BODY)
