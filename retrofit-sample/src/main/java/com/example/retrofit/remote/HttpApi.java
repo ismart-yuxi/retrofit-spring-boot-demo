@@ -1,26 +1,32 @@
 package com.example.retrofit.remote;
 
 
+import java.util.List;
+import java.util.Map;
+
 import com.example.retrofit.domain.User;
 import com.example.retrofit.ext.Sign;
 import com.example.retrofit.remote.fallback.HttpApiFallback;
 import com.example.retrofit.remote.fallback.HttpDegradeFallbackFactory;
-import com.github.lianjiatech.retrofit.spring.boot.core.OkHttpClientBuilder;
 import com.github.lianjiatech.retrofit.spring.boot.core.RetrofitClient;
 import com.github.lianjiatech.retrofit.spring.boot.degrade.sentinel.SentinelDegrade;
 import com.github.lianjiatech.retrofit.spring.boot.log.LogStrategy;
 import com.github.lianjiatech.retrofit.spring.boot.log.Logging;
-import com.github.lianjiatech.retrofit.spring.boot.retry.Retry;
+
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.http.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * v2.2.0 增加熔断器
@@ -64,28 +70,13 @@ import java.util.concurrent.TimeUnit;
  */
 @RetrofitClient(baseUrl = "${test.baseUrl}",
     fallback = HttpApiFallback.class,
-    fallbackFactory = HttpDegradeFallbackFactory.class,
-    baseOkHttpClientBeanName = "testOkHttpClient"
+    fallbackFactory = HttpDegradeFallbackFactory.class
 )
 @Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}")
 @Logging(logStrategy = LogStrategy.BODY)
 /*默认策略情况下，每5s平均响应时间不得超过500ms，否则启用熔断降级*/
 @SentinelDegrade(count = 500)
 public interface HttpApi {
-
-    /**
-     * 构建出的这个方法一定一定要加  @OkHttpClientBuilder 这个注解
-     *
-     * @return
-     */
-    @OkHttpClientBuilder
-    static OkHttpClient.Builder okhttpClientBuilder() {
-        return new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.SECONDS)
-            .readTimeout(1, TimeUnit.SECONDS)
-            .writeTimeout(1, TimeUnit.SECONDS);
-
-    }
 
     /**
      * 方法上的路径不以/开头
