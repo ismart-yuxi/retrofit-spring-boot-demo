@@ -7,7 +7,6 @@ import java.util.Map;
 import com.example.retrofit.domain.User;
 import com.example.retrofit.ext.Sign;
 import com.example.retrofit.remote.fallback.HttpApiFallback;
-import com.example.retrofit.remote.fallback.HttpDegradeFallbackFactory;
 import com.github.lianjiatech.retrofit.spring.boot.core.RetrofitClient;
 import com.github.lianjiatech.retrofit.spring.boot.degrade.sentinel.SentinelDegrade;
 import com.github.lianjiatech.retrofit.spring.boot.log.LogStrategy;
@@ -68,10 +67,7 @@ import retrofit2.http.Url;
  * logStrategy = LogStrategy.BODY  把请求第三方接口的收到的返回值,打印出日志
  *
  */
-@RetrofitClient(baseUrl = "${test.baseUrl}",
-    fallback = HttpApiFallback.class,
-    fallbackFactory = HttpDegradeFallbackFactory.class
-)
+@RetrofitClient(baseUrl = "${test.baseUrl}", fallback = HttpApiFallback.class, connectTimeoutMs = 3000)
 @Sign(accessKeyId = "${test.accessKeyId}", accessKeySecret = "${test.accessKeySecret}")
 @Logging(logStrategy = LogStrategy.BODY)
 /*默认策略情况下，每5s平均响应时间不得超过500ms，否则启用熔断降级*/

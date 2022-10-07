@@ -1,0 +1,66 @@
+server:
+    port: 8081
+
+spring:
+    application:
+        name: retrofit-sample
+# 在springcloud开发环境下，请启用相应的jar包，详情看maven pom的注释
+#    cloud:
+#        sentinel:
+#            transport:
+#                dashboard: localhost:8080
+#                heartbeat-interval-ms: 500
+retrofit:
+    # 全局转换器工厂(已经内置了组件扩展的转换器工厂，这里请勿重复配置)
+    global-converter-factories:
+        - retrofit2.converter.jackson.JacksonConverterFactory
+    # 全局调用适配器工厂(已经内置了组件扩展的调用适配器工厂，这里请勿重复配置)
+    global-call-adapter-factories:
+    # 全局日志打印配置
+    global-log:
+        # 启用全局日志打印
+        enable: true
+        # 全局日志打印级别
+        log-level: info
+        # 全局日志打印策略
+        log-strategy: body
+
+
+    # 全局重试配置
+    global-retry:
+        # 是否启用全局重试
+        enable: true
+        # 全局重试间隔时间
+        interval-ms: 10
+        # 全局最大重试次数
+        max-retries: 1
+        # 全局重试规则
+        retry-rules:
+            - response_status_not_2xx
+            - occur_io_exception
+
+    # 全局超时时间配置
+    global-timeout:
+        # 全局读取超时时间
+        read-timeout-ms: 5000
+        # 全局写入超时时间
+        write-timeout-ms: 5000
+        # 全局连接超时时间
+        connect-timeout-ms: 5000
+        # 全局完整调用超时时间
+        call-timeout-ms: 0
+
+    # 熔断降级配置
+    degrade:
+        # 熔断降级类型。默认none，表示不启用熔断降级
+        degrade-type: sentinel
+        global-sentinel-degrade:
+            # 是否开启
+            enable: true
+            # 各降级策略对应的阈值。平均响应时间(ms)，异常比例(0-1)，异常数量(1-N)
+            count: 500
+
+test:
+    baseUrl: http://localhost:9000/openservice/
+    accessKeyId: sdfsdfdsf
+    accessKeySecret: sadfsadfsdfsdf
